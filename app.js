@@ -41,7 +41,6 @@
     reset: document.getElementById('f-reset'),
     list: document.getElementById('results-list'),
     summary: document.getElementById('results-summary'),
-    dataCount: document.getElementById('data-count'),
   };
 
   function populateSelect(selectEl, values) {
@@ -219,6 +218,5 @@
     render();
   });
 
-  el.dataCount.textContent = data.length;
   render();
 })();
