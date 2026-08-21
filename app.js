@@ -3,18 +3,21 @@
     ...MATH_QUERY_DATA,
     ...(typeof MATH_QUERY_DATA_REAL !== 'undefined' ? MATH_QUERY_DATA_REAL : []),
     ...(typeof MATH_QUERY_DATA_MOE !== 'undefined' ? MATH_QUERY_DATA_MOE : []),
+    ...(typeof MATH_QUERY_DATA_NAER !== 'undefined' ? MATH_QUERY_DATA_NAER : []),
   ];
 
-  // Normalize every record shape (demo/real_data's mathScreen+mathCount vs
-  // mathsys's mathSubjects) into two derived sets so filtering logic doesn't
-  // need to branch on where the record came from.
+  // Normalize every record shape (demo/real_data's mathScreen+mathCount,
+  // mathsys's mathSubjects, naer's mathCounts array) into two derived sets
+  // so filtering logic doesn't need to branch on where the record came from.
   const data = raw.map((r) => {
     const screenSubjects = new Set(r.mathScreen ? [r.mathScreen.subject] : []);
     const countSubjects = new Set([
       ...(r.mathCount ? [r.mathCount.subject] : []),
       ...(r.mathSubjects || []),
+      ...((r.mathCounts || []).map((c) => c.subject)),
     ]);
-    const weighted = !!(r.mathCount && r.mathCount.weight > 1);
+    const weighted = !!(r.mathCount && r.mathCount.weight > 1) ||
+      (r.mathCounts || []).some((c) => c.weight > 1);
     return { ...r, _screen: screenSubjects, _count: countSubjects, _weighted: weighted };
   });
 
@@ -77,7 +80,7 @@
   function passesKeyword(record) {
     if (!state.keyword) return true;
     const kw = state.keyword.trim().toLowerCase();
-    return (record.school + record.dept).toLowerCase().includes(kw);
+    return `${record.school} ${record.dept}`.toLowerCase().includes(kw);
   }
 
   function filterData() {
@@ -105,6 +108,12 @@
     if (record.mathSubjects && record.mathSubjects.length) {
       record.mathSubjects.forEach((s) => {
         pills.push(`<span class="pill count">採計 ${s}</span>`);
+      });
+    }
+    if (record.mathCounts && record.mathCounts.length) {
+      record.mathCounts.forEach((c) => {
+        const weighted = c.weight > 1;
+        pills.push(`<span class="pill count${weighted ? ' weighted' : ''}">採計 ${c.subject}・×${c.weight}</span>`);
       });
     }
     if (pills.length === 0) {
