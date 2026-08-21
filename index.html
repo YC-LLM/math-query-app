@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿數學長｜大學校系數學採計查詢（示範版）</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>➗</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-emoji">➗</span>
+      <div>
+        <h1>阿數學長</h1>
+        <p class="tagline">大學校系「數學」採計快速查詢（示範版）</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="disclaimer">
+    ⚠️ 本站為<strong>教學示範用途</strong>。目前有兩批<strong>官方真實資料</strong>：
+    ①「考試分發」115學年度完整校系分則（含加權倍率，來源：大學考試入學分發委員會）；
+    ②「繁星推薦・個人申請・考試分發」116／117學年度數學參採類型預告（不含加權倍率，
+    來源：教育部數學考科參採查詢系統，116/117為簡章公告前的預告資料，之後可能調整）。
+    兩批資料的「學群」分類皆為關鍵字自動歸類、非官方分類。115學年度以前的「繁星推薦」
+    「個人申請」，因大學甄選入學委員會網站 robots.txt 禁止爬取，暫時仍是
+    <strong>手工編寫的少量示範資料</strong>（卡片上會標示⚠️示範資料）。任何情況都
+    <strong>不可作為升學申請依據</strong>，正式查詢請至
+    <a href="https://www.cac.edu.tw/" target="_blank" rel="noopener">大學甄選入學委員會</a>、
+    <a href="https://www.uac.edu.tw/" target="_blank" rel="noopener">大學考試入學分發委員會</a>，或教育部
+    <a href="https://srecruit.moe.edu.tw/mathsys/" target="_blank" rel="noopener">數學考科參採查詢系統</a>。
+  </div>
+
+  <main class="layout">
+    <aside class="filters" aria-label="篩選條件">
+      <section class="filter-group">
+        <h2>關鍵字</h2>
+        <input id="f-keyword" type="search" placeholder="搜尋學校或系所名稱…" autocomplete="off">
+      </section>
+
+      <section class="filter-group">
+        <h2>數學科目</h2>
+        <div class="chip-row" id="f-subject">
+          <button type="button" class="chip" data-value="數學A">學測數學A</button>
+          <button type="button" class="chip" data-value="數學B">學測數學B</button>
+          <button type="button" class="chip" data-value="數學甲">分科數學甲</button>
+          <button type="button" class="chip" data-value="數學乙">分科數學乙</button>
+        </div>
+        <p class="hint">不選 = 不限科目（可複選）</p>
+      </section>
+
+      <section class="filter-group">
+        <h2>參採方式</h2>
+        <div class="radio-list" id="f-usage">
+          <label><input type="radio" name="usage" value="any" checked> 不限（顯示全部校系）</label>
+          <label><input type="radio" name="usage" value="has"> 只看「有參採數學」（檢定或採計皆可）</label>
+          <label><input type="radio" name="usage" value="screen"> 只看「檢定」門檻科目</label>
+          <label><input type="radio" name="usage" value="count"> 只看「採計」進總分科目</label>
+          <label><input type="radio" name="usage" value="weighted"> 只看「加權」（倍率 &gt; 1）科目</label>
+        </div>
+      </section>
+
+      <section class="filter-group">
+        <h2>招生管道</h2>
+        <div class="checkbox-list" id="f-channel">
+          <label><input type="checkbox" value="繁星推薦" checked> 繁星推薦</label>
+          <label><input type="checkbox" value="個人申請" checked> 個人申請</label>
+          <label><input type="checkbox" value="考試分發" checked> 考試分發</label>
+        </div>
+      </section>
+
+      <section class="filter-group">
+        <h2>學年度</h2>
+        <select id="f-year">
+          <option value="">全部學年度</option>
+        </select>
+      </section>
+
+      <section class="filter-group">
+        <h2>學群</h2>
+        <select id="f-group">
+          <option value="">全部學群</option>
+        </select>
+      </section>
+
+      <section class="filter-group">
+        <h2>地區 / 公私立</h2>
+        <div class="two-col">
+          <select id="f-region">
+            <option value="">全部地區</option>
+          </select>
+          <select id="f-type">
+            <option value="">公立 / 私立</option>
+            <option value="國立">國立</option>
+            <option value="私立">私立</option>
+          </select>
+        </div>
+      </section>
+
+      <button id="f-reset" class="reset-btn" type="button">清除全部篩選</button>
+    </aside>
+
+    <section class="results" aria-label="查詢結果">
+      <div class="results-summary" id="results-summary"></div>
+      <div class="results-list" id="results-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>示範資料 <span id="data-count"></span> 筆・靈感致敬「牛啤學長」・資料結構可自行擴充為全國版</p>
+  </footer>
+
+<script src="data.js"></script>
+<script src="real_data.js"></script>
+<script src="mathsys_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
