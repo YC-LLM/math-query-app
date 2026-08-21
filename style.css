@@ -302,3 +302,62 @@ select {
   font-size: 12.5px;
   padding: 20px;
 }
+
+/* Password gate */
+#app-content { display: none; }
+
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 20px;
+}
+
+.gate-box {
+  width: 100%;
+  max-width: 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gate-emoji { font-size: 36px; }
+.gate-box h1 { margin: 0; font-size: 19px; }
+.gate-box p { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+
+.gate-box input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-alt);
+  color: var(--text);
+  font-size: 15px;
+  text-align: center;
+}
+.gate-box input[type="password"]:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+
+.gate-box button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--brand);
+  color: #ffffff;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.gate-box button:hover { background: var(--brand-strong); }
+
+.gate-error { color: var(--danger-text); font-size: 13px; }

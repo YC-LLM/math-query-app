@@ -8,6 +8,18 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="gate-overlay" class="gate-overlay">
+    <form id="gate-form" class="gate-box" autocomplete="off">
+      <span class="gate-emoji">🔒</span>
+      <h1>數學參採小幫手</h1>
+      <p>本站僅供特定對象使用，請輸入密碼繼續。</p>
+      <input id="gate-password" type="password" placeholder="請輸入密碼" autocomplete="off" autofocus>
+      <button type="submit">進入</button>
+      <p id="gate-error" class="gate-error" hidden>密碼錯誤，請再試一次。</p>
+    </form>
+  </div>
+
+  <div id="app-content">
   <header class="site-header">
     <div class="brand">
       <span class="brand-emoji">➗</span>
@@ -115,7 +127,9 @@
   <footer class="site-footer">
     <p>示範資料 <span id="data-count"></span> 筆・靈感致敬「牛啤學長」・資料結構可自行擴充為全國版</p>
   </footer>
+  </div>
 
+<script src="gate.js"></script>
 <script src="data.js"></script>
 <script src="real_data.js"></script>
 <script src="mathsys_data.js"></script>
